@@ -1,4 +1,4 @@
-# Crealytics Case Study Description
+# Wemolo Case Study Description
 
 ## What the Application does
 
