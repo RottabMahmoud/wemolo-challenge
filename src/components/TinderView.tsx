@@ -3,15 +3,22 @@ import { useQuery } from '@apollo/client';
 import { GET_PARKING_LOTS } from '../graphql/queries';
 import ParkingLotCard from './ParkingLotCard';
 
+interface ParkingLot {
+  id: string;
+  name: string;
+  address: string;
+  image: string;
+}
+
 interface TinderViewProps {
-  onEndSession: (goodLots: any[], badLots: any[]) => void;
+  onEndSession: (goodLots: ParkingLot[], badLots: ParkingLot[]) => void;
 }
 
 const TinderView: React.FC<TinderViewProps> = ({ onEndSession }) => {
   const [offset, setOffset] = useState(0);
-  const [parkingLots, setParkingLots] = useState<any[]>([]);
-  const [goodLots, setGoodLots] = useState<any[]>([]);
-  const [badLots, setBadLots] = useState<any[]>([]);
+  const [parkingLots, setParkingLots] = useState<ParkingLot[]>([]);
+  const [goodLots, setGoodLots] = useState<ParkingLot[]>([]);
+  const [badLots, setBadLots] = useState<ParkingLot[]>([]);
   const { data, fetchMore } = useQuery(GET_PARKING_LOTS, {
     variables: { limit: 5, offset },
   });
@@ -22,7 +29,7 @@ const TinderView: React.FC<TinderViewProps> = ({ onEndSession }) => {
     }
   }, [data]);
 
-  const handleRate = (rating: 'good' | 'bad', lot: any) => {
+  const handleRate = (rating: 'good' | 'bad', lot: ParkingLot) => {
     if (rating === 'good') {
       setGoodLots([...goodLots, lot]);
     } else {

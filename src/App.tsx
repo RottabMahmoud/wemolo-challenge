@@ -4,12 +4,19 @@ import client from './graphql/client';
 import TinderView from './components/TinderView';
 import SummaryView from './components/SummaryView';
 
+interface ParkingLot {
+  id: string;
+  name: string;
+  address: string;
+  image: string;
+}
+
 const App: React.FC = () => {
   const [view, setView] = useState<'tinder' | 'summary'>('tinder');
-  const [goodLots, setGoodLots] = useState<any[]>([]);
-  const [badLots, setBadLots] = useState<any[]>([]);
+  const [goodLots, setGoodLots] = useState<ParkingLot[]>([]);
+  const [badLots, setBadLots] = useState<ParkingLot[]>([]);
 
-  const handleEndTinder = (good: any[], bad: any[]) => {
+  const handleEndTinder = (good: ParkingLot[], bad: ParkingLot[]) => {
     setGoodLots(good);
     setBadLots(bad);
     setView('summary');

@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 
+interface ParkingLot {
+  id: string;
+  name: string;
+  address: string;
+  image: string;
+}
+
 interface SummaryViewProps {
-  goodLots: any[];
-  badLots: any[];
+  goodLots: ParkingLot[];
+  badLots: ParkingLot[];
 }
 
 const SummaryView: React.FC<SummaryViewProps> = ({ goodLots, badLots }) => {
   const [filter, setFilter] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('name');
 
-  const filterAndSortLots = (lots: any[]) => {
+  const filterAndSortLots = (lots: ParkingLot[]) => {
     return lots
       .filter((lot) => lot.name.toLowerCase().includes(filter.toLowerCase()) || lot.address.toLowerCase().includes(filter.toLowerCase()))
       .sort((a, b) => a[sortBy].localeCompare(b[sortBy]));
